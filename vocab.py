@@ -48,14 +48,14 @@ class Vocab(object):
 
         for token in tokens_to_delete:
             self.token_counts.pop(token)
-            # self.token2id.pop(token)
+            self.token2id.pop(token)
 
         self.add_document(self.special_tokens, rebuild=False)
         self.add_document(self.token_counts.keys(), rebuild=False)
 
         self._rebuild_id2token()
 
-        nb_tokens_after = len(self.token2id)
+        nb_tokens_after = len(self.token_counts)
 
         print(f'Vocab pruned: {nb_tokens_before} -> {nb_tokens_after}')
 

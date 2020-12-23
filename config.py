@@ -51,7 +51,7 @@ class PreprocessConfig:
     word_embeddings: str = 'fast_text'
     max_vocab_size: int = 50000
 
-    nb_style_dims: int = 50
+    nb_style_dims: int = 25
     nb_style_dims_sentences: int = 50000
     style_tokens_proportion: float = 0.2
 
