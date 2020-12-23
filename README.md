@@ -1,3 +1,26 @@
+```
+python3 -m venv venv
+source venv/bin/activate
+
+mkdir -p data/experiments
+mkdir -p data/datasets
+mkdir -p data/word_embeddings
+
+pip install numpy==1.16.3
+pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp37-cp37m-linux_x86_64.whl
+pip install -r requirements.txt
+wget https://mednli.blob.core.windows.net/shared/word_embeddings/crawl-300d-2M.pickled -O data/word_embeddings/crawl-300d-2M.pickled
+
+python -m spacy download en_core_web_sm
+python -m spacy download en_core_web_lg
+
+
+pip install "git+https://github.com/josephcappadona/kids_britannica#egg=kids_britannica"
+wget --quiet --no-check-certificate --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1gqv22KX7XTq4IMYh2MR6LLUDI2kbDWjk' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1gqv22KX7XTq4IMYh2MR6LLUDI2kbDWjk" -O data_small.zip && rm -rf /tmp/cookies.txt
+unzip -oqqUU data_small.zip && rm data_small.zip
+mv data_small/ data/datasets/kids_britannica
+```
+
 # Adversarial Decomposition of Text Representation
 The code for the paper "Adversarial Decomposition of Text Representation", NAACL 2019 
 https://arxiv.org/abs/1808.09042
