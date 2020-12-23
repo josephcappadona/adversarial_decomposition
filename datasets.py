@@ -83,6 +83,26 @@ class ShakespeareDatasetReader(SentenceStyleDatasetReader):
                     yield sentence, file_style
 
 
+from kids_britannica import KidsBritannicaDataSet
+from nltk.tokenize import sent_tokenize
+class KidsBritannicaDatasetReader(SentenceStyleDatasetReader):
+
+    def _read(self, data_path):
+        ds = KidsBritannicaDataSet(data_path)
+        for article in ds.kids_articles:
+            for section in article['text']:
+                paragraphs = section[1]
+                for paragraph in paragraphs:
+                    for sentence in sent_tokenize(paragraph):
+                        yield sentence, 'kids'
+        for article in ds.scholars_articles:
+            for section in article['text']:
+                paragraphs = section[1]
+                for paragraph in paragraphs:
+                    for sentence in sent_tokenize(paragraph):
+                        yield sentence, 'scholars'
+
+
 class YelpDatasetReader(SentenceStyleDatasetReader):
     def clean_sentence(self, sentence):
         sentence = super().clean_sentence(sentence)

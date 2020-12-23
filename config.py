@@ -1,15 +1,15 @@
 import dataclasses
 from pathlib import Path
 
-from datasets import ShakespeareDatasetReader, YelpDatasetReader
+from datasets import ShakespeareDatasetReader, YelpDatasetReader, KidsBritannicaDatasetReader
 from models import Seq2Seq, Seq2SeqMeaningStyle, StyleClassifier
-from settings import SHAKESPEARE_DATASET_DIR, YELP_DATASET_DIR
+from settings import SHAKESPEARE_DATASET_DIR, YELP_DATASET_DIR, KIDS_BRITANNICA_DATASET_DIR
 
 
 @dataclasses.dataclass
 class TrainConfig:
     model_class: type = Seq2SeqMeaningStyle
-    preprocess_exp_id: str = 'preprocess.buppgpnf'  # Shakespeare: xxx | Yelp: 2p089c54
+    preprocess_exp_id: str = 'preprocess.xswh4j6t'  # Shakespeare: xxx | Yelp: 2p089c54
 
     embedding_size: int = 300
     hidden_size: int = 256
@@ -18,8 +18,8 @@ class TrainConfig:
     pretrained_embeddings: bool = True
     trainable_embeddings: bool = False
 
-    meaning_size: int = 128
-    style_size: int = 128
+    meaning_size: int = 32
+    style_size: int = 32
 
     lr: float = 0.001
     weight_decay: float = 0.0000001
@@ -35,15 +35,15 @@ class TrainConfig:
     use_motivator: bool = True
     use_gauss: bool = False
 
-    num_epochs: int = 500
-    batch_size: int = 1024
+    num_epochs: int = 5
+    batch_size: int = 256
     best_loss: str = 'loss'
 
 
 @dataclasses.dataclass
 class PreprocessConfig:
-    data_path: Path = YELP_DATASET_DIR
-    dataset_reader_class: type = YelpDatasetReader
+    data_path: Path = KIDS_BRITANNICA_DATASET_DIR
+    dataset_reader_class: type = KidsBritannicaDatasetReader
 
     min_len: int = 3
     max_len: int = 20
