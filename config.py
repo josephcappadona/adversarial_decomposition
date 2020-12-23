@@ -42,8 +42,8 @@ class TrainConfig:
 
 @dataclasses.dataclass
 class PreprocessConfig:
-    data_path: Path = KIDS_BRITANNICA_DATASET_DIR
-    dataset_reader_class: type = KidsBritannicaDatasetReader
+    data_path: Path = NEWSELA_DATASET_DIR
+    dataset_reader_class: type = NewselaDatasetReader
 
     min_len: int = 3
     max_len: int = 20
