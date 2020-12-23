@@ -90,8 +90,7 @@ class KidsBritannicaDatasetReader(SentenceStyleDatasetReader):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         import nltk
-        nltk.download('punkt')
-        KBDS.download(size='small', data_dir='data/datasets')
+        nltk.download('punkt', quiet=True)
 
     def _read(self, data_path):
         ds = KBDS(data_path)
