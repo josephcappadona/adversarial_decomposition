@@ -9,17 +9,17 @@ from settings import SHAKESPEARE_DATASET_DIR, YELP_DATASET_DIR, KIDS_BRITANNICA_
 @dataclasses.dataclass
 class TrainConfig:
     model_class: type = Seq2SeqMeaningStyle
-    preprocess_exp_id: str = 'preprocess.xswh4j6t'  # Shakespeare: xxx | Yelp: 2p089c54
+    preprocess_exp_id: str = 'preprocess.pb25misv'  # Shakespeare: xxx | Yelp: 2p089c54
 
-    embedding_size: int = 300
-    hidden_size: int = 256
+    embedding_size: int = 150
+    hidden_size: int = 128
     dropout: float = 0.2
     scheduled_sampling_ratio: float = 0.5
     pretrained_embeddings: bool = True
     trainable_embeddings: bool = False
 
-    meaning_size: int = 32
-    style_size: int = 32
+    meaning_size: int = 16
+    style_size: int = 16
 
     lr: float = 0.001
     weight_decay: float = 0.0000001
@@ -35,7 +35,7 @@ class TrainConfig:
     use_motivator: bool = True
     use_gauss: bool = False
 
-    num_epochs: int = 5
+    num_epochs: int = 100
     batch_size: int = 256
     best_loss: str = 'loss'
 

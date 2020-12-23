@@ -10,6 +10,9 @@ import torch.utils.data
 
 from vocab import Vocab
 
+from kids_britannica import KidsBritannicaDataSet as KBDS
+from nltk.tokenize import sent_tokenize
+
 
 class SentenceStyleDatasetReader(object):
 
@@ -83,12 +86,15 @@ class ShakespeareDatasetReader(SentenceStyleDatasetReader):
                     yield sentence, file_style
 
 
-from kids_britannica import KidsBritannicaDataSet
-from nltk.tokenize import sent_tokenize
 class KidsBritannicaDatasetReader(SentenceStyleDatasetReader):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        import nltk
+        nltk.download('punkt')
+        KBDS.download(size='small', data_dir='data/datasets')
 
     def _read(self, data_path):
-        ds = KidsBritannicaDataSet(data_path)
+        ds = KBDS(data_path)
         for article in ds.kids_articles:
             for section in article['text']:
                 paragraphs = section[1]
