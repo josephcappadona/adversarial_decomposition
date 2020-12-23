@@ -101,6 +101,12 @@ class KidsBritannicaDatasetReader(SentenceStyleDatasetReader):
                 for paragraph in paragraphs:
                     for sentence in sent_tokenize(paragraph):
                         yield sentence, 'kids'
+        for article in ds.students_articles:
+            for section in article['text']:
+                paragraphs = section[1]
+                for paragraph in paragraphs:
+                    for sentence in sent_tokenize(paragraph):
+                        yield sentence, 'students'
         for article in ds.scholars_articles:
             for section in article['text']:
                 paragraphs = section[1]
@@ -115,27 +121,22 @@ class NewselaDatasetReader(SentenceStyleDatasetReader):
         nltk.download('punkt', quiet=True)
 
     def _read(self, data_path):
+        from glob2 import glob
 
         if not data_path.exists():
             newsela_url = 'https://drive.google.com/uc?id=1P5dznO4LRsgZdF11A0_Co3Zlmsr36u8-'
             newsela_zip_path = data_path / 'newsela_articles.zip'
             download_and_unzip(newsela_url, newsela_zip_path)
 
-        level0_query = set(data_path / 'articles' / '*.en.0.txt')
-        for path_l0 in glob(level0_query):
-            with open(path_l0, 'rt') as f:
-                for line in f:
-                    if line:
-                        for sent in sent_tokenize(line):
-                            yield sent, 'level0'
-
-        level4_query = set(data_path / 'articles' / '*.en.4.txt')
-        for path_l0 in glob(level0_query):
-            with open(path_l0, 'rt') as f:
-                for line in f:
-                    if line:
-                        for sent in sent_tokenize(line):
-                            yield sent, 'level4'
+        for level in range(5):
+            query = str(data_path / 'articles' / f'*.en.{level}.txt')
+            for path_l in glob(query):
+                with open(path_l, 'rt') as f:
+                    for line in f:
+                        line = line.strip()
+                        if line:
+                            for sent in sent_tokenize(line):
+                                yield sent, f'level{level}'
 
 
 class YelpDatasetReader(SentenceStyleDatasetReader):

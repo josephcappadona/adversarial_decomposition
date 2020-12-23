@@ -48,7 +48,7 @@ class Vocab(object):
 
         for token in tokens_to_delete:
             self.token_counts.pop(token)
-            self.token2id.pop(token)
+            # self.token2id.pop(token)
 
         self.add_document(self.special_tokens, rebuild=False)
         self.add_document(self.token_counts.keys(), rebuild=False)

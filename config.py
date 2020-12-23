@@ -25,7 +25,7 @@ class TrainConfig:
     weight_decay: float = 0.0000001
     grad_clipping: float = 5
 
-    D_num_iterations: int = 10
+    D_num_iterations: int = 5
     D_loss_multiplier: float = 1
     P_loss_multiplier: float = 10
     P_bow_loss_multiplier: float = 1
@@ -35,7 +35,7 @@ class TrainConfig:
     use_motivator: bool = True
     use_gauss: bool = False
 
-    num_epochs: int = 100
+    num_epochs: int = 50
     batch_size: int = 256
     best_loss: str = 'loss'
 

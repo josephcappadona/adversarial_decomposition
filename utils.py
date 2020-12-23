@@ -164,7 +164,7 @@ def extract_word_embeddings_style_dimensions(cfg, instances, vocab, style_vocab,
     print(f'Styles means: {[m.shape for m in means]}')
 
     # get dimensions that have the biggest absolute difference
-    means_diff = np.abs(np.subtract(*means))
+    means_diff = np.abs(np.subtract(*[means[0], means[-1]]))
     diff_sort_idx = np.argsort(-means_diff)
     style_dims = diff_sort_idx[:cfg.nb_style_dims]
 

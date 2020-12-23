@@ -10,6 +10,7 @@ cymem==2.0.2
 decorator==4.4.0
 defusedxml==0.6.0
 entrypoints==0.3
+gdown==3.12.2
 idna==2.8
 ipykernel==5.1.1
 ipython==7.5.0
@@ -62,6 +63,8 @@ srsly==0.0.6
 tensorboardX==1.7
 terminado==0.8.2
 testpath==0.4.2
+torch==1.1.0
+torchvision==0.3.0
 thinc==7.0.4
 tornado==6.0.2
 tqdm==4.32.1
