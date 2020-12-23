@@ -1,9 +1,9 @@
 import dataclasses
 from pathlib import Path
 
-from datasets import ShakespeareDatasetReader, YelpDatasetReader, KidsBritannicaDatasetReader
+from datasets import ShakespeareDatasetReader, YelpDatasetReader, KidsBritannicaDatasetReader, NewselaDatasetReader
 from models import Seq2Seq, Seq2SeqMeaningStyle, StyleClassifier
-from settings import SHAKESPEARE_DATASET_DIR, YELP_DATASET_DIR, KIDS_BRITANNICA_DATASET_DIR
+from settings import SHAKESPEARE_DATASET_DIR, YELP_DATASET_DIR, KIDS_BRITANNICA_DATASET_DIR, NEWSELA_DATASET_DIR
 
 
 @dataclasses.dataclass
@@ -11,7 +11,7 @@ class TrainConfig:
     model_class: type = Seq2SeqMeaningStyle
     preprocess_exp_id: str = 'preprocess.pb25misv'  # Shakespeare: xxx | Yelp: 2p089c54
 
-    embedding_size: int = 150
+    embedding_size: int = 300
     hidden_size: int = 128
     dropout: float = 0.2
     scheduled_sampling_ratio: float = 0.5

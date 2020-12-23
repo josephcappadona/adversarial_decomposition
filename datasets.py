@@ -11,6 +11,7 @@ import torch.utils.data
 from vocab import Vocab
 
 from kids_britannica import KidsBritannicaDataSet as KBDS
+from kids_britannica.utils import download_and_unzip
 from nltk.tokenize import sent_tokenize
 
 
@@ -106,6 +107,35 @@ class KidsBritannicaDatasetReader(SentenceStyleDatasetReader):
                 for paragraph in paragraphs:
                     for sentence in sent_tokenize(paragraph):
                         yield sentence, 'scholars'
+
+class NewselaDatasetReader(SentenceStyleDatasetReader):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        import nltk
+        nltk.download('punkt', quiet=True)
+
+    def _read(self, data_path):
+
+        if not data_path.exists():
+            newsela_url = 'https://drive.google.com/uc?id=1P5dznO4LRsgZdF11A0_Co3Zlmsr36u8-'
+            newsela_zip_path = data_path / 'newsela_articles.zip'
+            download_and_unzip(newsela_url, newsela_zip_path)
+
+        level0_query = set(data_path / 'articles' / '*.en.0.txt')
+        for path_l0 in glob(level0_query):
+            with open(path_l0, 'rt') as f:
+                for line in f:
+                    if line:
+                        for sent in sent_tokenize(line):
+                            yield sent, 'level0'
+
+        level4_query = set(data_path / 'articles' / '*.en.4.txt')
+        for path_l0 in glob(level0_query):
+            with open(path_l0, 'rt') as f:
+                for line in f:
+                    if line:
+                        for sent in sent_tokenize(line):
+                            yield sent, 'level4'
 
 
 class YelpDatasetReader(SentenceStyleDatasetReader):
