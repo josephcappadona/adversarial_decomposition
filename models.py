@@ -358,6 +358,13 @@ class Seq2SeqMeaningStyle(Seq2Seq):
             output_dict = self.calc_discriminator_adv_loss(output_dict, inputs)
 
         return output_dict
+    
+    def calc_aligned_loss(self, aligned1, aligned2):
+        recon_loss = 0
+        encoded1 = self.encode({'sentence': aligned1})
+        encoded2 = self.encode({'sentence': aligned2})
+        recon_loss += F.mse_loss(encoded1['meaning_hidden'], encoded2['meaning_hidden'])
+        return recon_loss
 
 
 class StyleClassifier(torch.nn.Module):

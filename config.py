@@ -48,6 +48,7 @@ class PreprocessConfig:
     min_len: int = 3
     max_len: int = 20
     lowercase: bool = True
+    entitify: bool = True
     word_embeddings: str = 'fast_text'
     max_vocab_size: int = 50000
 

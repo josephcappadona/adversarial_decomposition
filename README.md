@@ -16,6 +16,8 @@ python -m spacy download en_core_web_lg
 pip install "git+https://github.com/josephcappadona/kids_britannica#egg=kids_britannica"
 ```
 
+Running the model on Newsela Data: https://colab.research.google.com/drive/1i1iJlfbDne6nwbPAi-y7RBGxdFByg3EK
+
 # Adversarial Decomposition of Text Representation
 The code for the paper "Adversarial Decomposition of Text Representation", NAACL 2019 
 https://arxiv.org/abs/1808.09042

@@ -25,9 +25,10 @@ from utils import to_device, load_weights, load_embeddings, create_embeddings_ma
 from vocab import Vocab
 from train import create_model
 from preprocess import load_dataset, create_dataset_reader
+from sys import argv
 # -
 
-exp_id = 'train.0d1b9t6u'
+exp_id = f"train.{argv[1] if len(argv) > 1 else '0d1b9t6u'}"
 
 # # Load everything
 

@@ -22,7 +22,7 @@ class UpdateFunction(object):
     def step(self, engine, batch):
         pass
 
-    def __call__(self, engine, batch):
+    def __call__(self, engine, batch, **kwargs):
         if self.training:
             self.model.train()
         else:
@@ -30,7 +30,7 @@ class UpdateFunction(object):
 
         batch = to_device(batch)
 
-        losses = self.step(engine, batch)
+        losses = self.step(engine, batch, **kwargs)
 
         return losses
 
@@ -117,7 +117,7 @@ class Seq2SeqMeaningStyleUpdateFunction(UpdateFunction):
             self.params_D, lr=self.lr, weight_decay=self.weight_decay, amsgrad=True
         )
 
-    def step(self, engine, batch):
+    def step(self, engine, batch, alignments=None):
         losses_output_dict = {}
 
         # discriminator

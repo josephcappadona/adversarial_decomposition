@@ -17,14 +17,17 @@ from nltk.tokenize import sent_tokenize
 
 class SentenceStyleDatasetReader(object):
 
-    def __init__(self, min_len, max_len, lowercase, *args, **kwargs):
+    def __init__(self, min_len, max_len, lowercase, entitify, *args, **kwargs):
         self.min_len = min_len
         self.max_len = max_len
         self.lowercase = lowercase
 
-        disable = ['vectors', 'textcat', 'tagger', 'parser', 'ner']
+        disable = ['vectors', 'textcat', 'tagger', 'parser']
         self.spacy = spacy.load('en_core_web_lg', disable=disable)
         self.spacy.add_pipe(self.spacy.create_pipe('sentencizer'))
+        self.entitify = entitify
+        if self.entitify:
+            print('Entitification is on')
 
     @abc.abstractmethod
     def _read(self, data_path):
@@ -44,14 +47,22 @@ class SentenceStyleDatasetReader(object):
         return sentence_cleaned
 
     def preprocess_sentence(self, sentence):
-        sentence = [
-            token.lower_ if self.lowercase else token.text
-            for token in sentence
-            if not token.is_space
-        ]
+        new_sentence = []
+        for token in sentence:
+            if not token.is_space:
+
+                if self.entitify and token.ent_type_:
+                    token = token.ent_type_
+                else:
+                    token = token.text
+
+                    if self.lowercase:
+                        token = token.lower()
+                        
+                new_sentence.append(token)
 
         # cut to max len -1 for the END token
-        sentence = sentence[:self.max_len - 1]
+        sentence = new_sentence[:self.max_len - 1]
 
         return sentence
 

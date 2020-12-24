@@ -1,6 +1,8 @@
 import dataclasses
 import itertools
 from collections import defaultdict
+from sys import argv
+import yaml
 
 import numpy as np
 import torch.utils.data
@@ -157,4 +159,9 @@ def main(cfg):
 
 
 if __name__ == '__main__':
-    main(TrainConfig())
+    params = {}
+    if len(argv) > 1:
+        preprocess_id = argv[1]
+        params['preprocess_exp_id'] = f'preprocess.{preprocess_id}'
+    train_config = TrainConfig(**params)
+    main(train_config)
